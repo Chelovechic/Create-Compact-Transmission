@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "E"
+  ],
+  "key": {
+    "E": {
+      "item": "tfmg:exhaust"
+    }
+  },
+  "result": {
+    "item": "create_compact_transmission:co2_scrubber"
+  }
+}
+

@@ -1,0 +1,83 @@
+{
+  "variants": {
+    "axis=x,direction=left,powered=false": {
+      "model": "create_compact_transmission:block/rotator/block",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,direction=left,powered=true": {
+      "model": "create_compact_transmission:block/rotator/block_powered",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,direction=none,powered=false": {
+      "model": "create_compact_transmission:block/rotator/block",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,direction=none,powered=true": {
+      "model": "create_compact_transmission:block/rotator/block_powered",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,direction=right,powered=false": {
+      "model": "create_compact_transmission:block/rotator/block",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,direction=right,powered=true": {
+      "model": "create_compact_transmission:block/rotator/block_powered",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,direction=left,powered=false": {
+      "model": "create_compact_transmission:block/rotator/block"
+    },
+    "axis=y,direction=left,powered=true": {
+      "model": "create_compact_transmission:block/rotator/block_powered"
+    },
+    "axis=y,direction=none,powered=false": {
+      "model": "create_compact_transmission:block/rotator/block"
+    },
+    "axis=y,direction=none,powered=true": {
+      "model": "create_compact_transmission:block/rotator/block_powered"
+    },
+    "axis=y,direction=right,powered=false": {
+      "model": "create_compact_transmission:block/rotator/block"
+    },
+    "axis=y,direction=right,powered=true": {
+      "model": "create_compact_transmission:block/rotator/block_powered"
+    },
+    "axis=z,direction=left,powered=false": {
+      "model": "create_compact_transmission:block/rotator/block",
+      "x": 90,
+      "y": 180
+    },
+    "axis=z,direction=left,powered=true": {
+      "model": "create_compact_transmission:block/rotator/block_powered",
+      "x": 90,
+      "y": 180
+    },
+    "axis=z,direction=none,powered=false": {
+      "model": "create_compact_transmission:block/rotator/block",
+      "x": 90,
+      "y": 180
+    },
+    "axis=z,direction=none,powered=true": {
+      "model": "create_compact_transmission:block/rotator/block_powered",
+      "x": 90,
+      "y": 180
+    },
+    "axis=z,direction=right,powered=false": {
+      "model": "create_compact_transmission:block/rotator/block",
+      "x": 90,
+      "y": 180
+    },
+    "axis=z,direction=right,powered=true": {
+      "model": "create_compact_transmission:block/rotator/block_powered",
+      "x": 90,
+      "y": 180
+    }
+  }
+}
+

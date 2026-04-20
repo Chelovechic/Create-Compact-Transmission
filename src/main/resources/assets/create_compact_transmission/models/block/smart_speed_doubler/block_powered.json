@@ -1,0 +1,8 @@
+{
+	"parent": "create_compact_transmission:block/smart_speed_doubler/block",
+    "textures": {
+      "0": "create_compact_transmission:block/smart_speed_doubler_default",
+      "particle": "create_compact_transmission:block/smart_speed_doubler_default"
+    }
+}
+

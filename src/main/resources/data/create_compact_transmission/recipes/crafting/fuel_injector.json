@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "C",
+    "P",
+    "E"
+  ],
+  "key": {
+    "C": {
+      "item": "create:copper_sheet"
+    },
+    "P": {
+      "item": "create:fluid_pipe"
+    },
+    "E": {
+      "item": "create:electron_tube"
+    }
+  },
+  "result": {
+    "item": "create_compact_transmission:fuel_injector"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "package": "com.lucse.create_compact_transmission.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "minVersion": "0.8",
+  "refmap": "create_compact_transmission.refmap.json",
+  "plugin": "com.lucse.create_compact_transmission.mixin.MixinPlugin",
+  "mixins": [
+    "create.EncasedPipeBlockMixin",
+    "tfmg.AbstractEngineBlockEntityMixin",
+    "tfmg.AbstractSmallEngineBlockEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
+

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "create_compact_transmission:co2_scrubber"
+    }
+  ],
+  "result": {
+    "item": "tfmg:exhaust"
+  }
+}
+

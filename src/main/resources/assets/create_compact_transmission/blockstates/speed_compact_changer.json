@@ -1,0 +1,31 @@
+{
+  "variants": {
+    "axis=x,powered=false": {
+      "model": "create_compact_transmission:block/speed_compact_changer/block",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,powered=true": {
+      "model": "create_compact_transmission:block/speed_compact_changer/block_powered",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,powered=false": {
+      "model": "create_compact_transmission:block/speed_compact_changer/block"
+    },
+    "axis=y,powered=true": {
+      "model": "create_compact_transmission:block/speed_compact_changer/block_powered"
+    },
+    "axis=z,powered=false": {
+      "model": "create_compact_transmission:block/speed_compact_changer/block",
+      "x": 90,
+      "y": 180
+    },
+    "axis=z,powered=true": {
+      "model": "create_compact_transmission:block/speed_compact_changer/block_powered",
+      "x": 90,
+      "y": 180
+    }
+  }
+}
+

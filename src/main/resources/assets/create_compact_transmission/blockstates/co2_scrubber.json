@@ -1,0 +1,57 @@
+{
+  "variants": {
+    "active=false,facing=down": {
+      "model": "create_compact_transmission:block/co2_scrubber",
+      "x": 180
+    },
+    "active=true,facing=down": {
+      "model": "create_compact_transmission:block/co2_scrubber",
+      "x": 180
+    },
+    "active=false,facing=up": {
+      "model": "create_compact_transmission:block/co2_scrubber"
+    },
+    "active=true,facing=up": {
+      "model": "create_compact_transmission:block/co2_scrubber"
+    },
+    "active=false,facing=north": {
+      "model": "create_compact_transmission:block/co2_scrubber",
+      "x": 90
+    },
+    "active=true,facing=north": {
+      "model": "create_compact_transmission:block/co2_scrubber",
+      "x": 90
+    },
+    "active=false,facing=south": {
+      "model": "create_compact_transmission:block/co2_scrubber",
+      "x": 90,
+      "y": 180
+    },
+    "active=true,facing=south": {
+      "model": "create_compact_transmission:block/co2_scrubber",
+      "x": 90,
+      "y": 180
+    },
+    "active=false,facing=west": {
+      "model": "create_compact_transmission:block/co2_scrubber",
+      "x": 90,
+      "y": 270
+    },
+    "active=true,facing=west": {
+      "model": "create_compact_transmission:block/co2_scrubber",
+      "x": 90,
+      "y": 270
+    },
+    "active=false,facing=east": {
+      "model": "create_compact_transmission:block/co2_scrubber",
+      "x": 90,
+      "y": 90
+    },
+    "active=true,facing=east": {
+      "model": "create_compact_transmission:block/co2_scrubber",
+      "x": 90,
+      "y": 90
+    }
+  }
+}
+

@@ -1,0 +1,8 @@
+{
+	"parent": "create:block/clutch/block",
+    "textures": {
+        "0": "create_compact_transmission:block/four_speed_transmission",
+		"particle": "create_compact_transmission:block/four_speed_transmission"
+    }
+}
+

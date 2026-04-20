@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PEP",
+    "EAE",
+    "PAP"
+  ],
+  "key": {
+    "P": {
+      "item": "create:precision_mechanism"
+    },
+    "E": {
+      "item": "create:electron_tube"
+    },
+    "A": {
+      "item": "create:adjustable_chain_gearshift"
+    }
+  },
+  "result": {
+    "item": "create_compact_transmission:smart_speed_doubler"
+  }
+}
+

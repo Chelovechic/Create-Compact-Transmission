@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "E",
+    "L",
+    "G"
+  ],
+  "key": {
+    "E": {
+      "item": "create:electron_tube"
+    },
+    "L": {
+      "item": "create:clutch"
+    },
+    "G": {
+      "item": "create:gearshift"
+    }
+  },
+  "result": {
+    "item": "create_compact_transmission:rotator"
+  }
+}
+

@@ -1,0 +1,87 @@
+{
+  "variants": {
+    "axis=x,gear=reverse": {
+      "model": "create_compact_transmission:block/four_speed_transmission/block_reverse",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,gear=neutral": {
+      "model": "create_compact_transmission:block/four_speed_transmission/block",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,gear=first": {
+      "model": "create_compact_transmission:block/four_speed_transmission/block_first",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,gear=second": {
+      "model": "create_compact_transmission:block/four_speed_transmission/block_second",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,gear=third": {
+      "model": "create_compact_transmission:block/four_speed_transmission/block_third",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,gear=fourth": {
+      "model": "create_compact_transmission:block/four_speed_transmission/block_fourth",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,gear=reverse": {
+      "model": "create_compact_transmission:block/four_speed_transmission/block_reverse"
+    },
+    "axis=y,gear=neutral": {
+      "model": "create_compact_transmission:block/four_speed_transmission/block"
+    },
+    "axis=y,gear=first": {
+      "model": "create_compact_transmission:block/four_speed_transmission/block_first"
+    },
+    "axis=y,gear=second": {
+      "model": "create_compact_transmission:block/four_speed_transmission/block_second"
+    },
+    "axis=y,gear=third": {
+      "model": "create_compact_transmission:block/four_speed_transmission/block_third"
+    },
+    "axis=y,gear=fourth": {
+      "model": "create_compact_transmission:block/four_speed_transmission/block_fourth"
+    },
+    "axis=z,gear=reverse": {
+      "model": "create_compact_transmission:block/four_speed_transmission/block_reverse",
+      "x": 90,
+      "y": 180
+    },
+    "axis=z,gear=neutral": {
+      "model": "create_compact_transmission:block/four_speed_transmission/block",
+      "x": 90,
+      "y": 180
+    },
+    "axis=z,gear=first": {
+      "model": "create_compact_transmission:block/four_speed_transmission/block_first",
+      "x": 90,
+      "y": 180
+    },
+    "axis=z,gear=second": {
+      "model": "create_compact_transmission:block/four_speed_transmission/block_second",
+      "x": 90,
+      "y": 180
+    },
+    "axis=z,gear=third": {
+      "model": "create_compact_transmission:block/four_speed_transmission/block_third",
+      "x": 90,
+      "y": 180
+    },
+    "axis=z,gear=fourth": {
+      "model": "create_compact_transmission:block/four_speed_transmission/block_fourth",
+      "x": 90,
+      "y": 180
+    }
+  }
+}
+
+
+
+
+

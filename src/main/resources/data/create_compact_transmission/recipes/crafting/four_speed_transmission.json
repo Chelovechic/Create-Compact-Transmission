@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S S",
+    " P "
+  ],
+  "key": {
+    "S": {
+      "item": "create_compact_transmission:smart_speed_doubler"
+    },
+    "P": {
+      "item": "create:precision_mechanism"
+    }
+  },
+  "result": {
+    "item": "create_compact_transmission:four_speed_transmission"
+  }
+}
+

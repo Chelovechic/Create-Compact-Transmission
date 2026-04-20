@@ -1,0 +1,7 @@
+{
+  "parent": "create:item/clutch",
+  "textures": {
+    "0": "create_compact_transmission:block/compact_speed_regulator"
+  }
+}
+

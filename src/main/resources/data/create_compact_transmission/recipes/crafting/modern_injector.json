@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "tfmg:spark_plug"
+    },
+    {
+      "item": "tfmg:circuit_board"
+    },
+    {
+      "item": "tfmg:circuit_board"
+    },
+    {
+      "item": "tfmg:steel_mechanism"
+    },
+    {
+      "item": "tfmg:screw"
+    }
+  ],
+  "result": {
+    "item": "create_compact_transmission:modern_injector"
+  }
+}
+

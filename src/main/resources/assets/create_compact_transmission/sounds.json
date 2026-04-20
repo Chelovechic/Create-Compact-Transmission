@@ -1,0 +1,16 @@
+{
+  "shifter_sound": {
+    "sounds": [
+      {
+        "name": "create_compact_transmission:shifter_sound",
+        "type": "file"
+      }
+    ],
+    "subtitle": "create_compact_transmission.subtitle.shifter_sound"
+  }
+}
+
+
+
+
+

@@ -1,0 +1,8 @@
+{
+	"parent": "create_compact_transmission:block/speed_compact_changer/block",
+    "textures": {
+      "0": "create_compact_transmission:block/speed_compact_changer_on",
+      "particle": "create_compact_transmission:block/speed_compact_changer_on"
+    }
+}
+

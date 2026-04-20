@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "create_compact_transmission:item/modern_injector"
+  }
+}
+

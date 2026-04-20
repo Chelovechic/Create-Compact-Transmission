@@ -1,0 +1,20 @@
+{
+  "block.create_compact_transmission.compact_speed_regulator": "Компактный регулятор скорости",
+  "block.create_compact_transmission.speed_compact_changer": "Простой регулятор скорости со сцеплением",
+  "block.create_compact_transmission.speed_doubler": "Простой регулятор скорости",
+  "block.create_compact_transmission.smart_speed_doubler": "Простая коробка передач",
+  "block.create_compact_transmission.four_speed_transmission": "Секвентальная коробка передач",
+  "block.create_compact_transmission.rotator": "Вращатель",
+  "block.create_compact_transmission.co2_scrubber": "Выхлопная труба",
+  "item.create_compact_transmission.modern_injector": "Инжектор",
+  "item.create_compact_transmission.modern_injector.tooltip": "Уменьшает расход топлива двигателя TFMG в 2 раза",
+  "item.create_compact_transmission.modern_injector.already_installed": "Инжектор уже установлен на этом двигателе",
+  "item.create_compact_transmission.fuel_injector": "Топливный инжектор",
+  "item.create_compact_transmission.fuel_injector.tooltip": "Устанавливается на трубу Create и создает автоподачу топлива в двигатели TFMG",
+  "item.create_compact_transmission.fuel_injector.installed": "Топливный инжектор установлен",
+  "item.create_compact_transmission.fuel_injector.already_installed": "На этой трубе уже есть топливный инжектор",
+  "item.create_compact_transmission.gearbox_setting": "Настройка коробки передач",
+  "fuel_injector_installed": "Инжектор установлен",
+  "itemGroup.create_compact_transmission.main": "Create Compact Transmission",
+  "create_compact_transmission.subtitle.shifter_sound": "Переключение передач"
+}

@@ -1,0 +1,8 @@
+{
+	"parent": "create_compact_transmission:block/four_speed_transmission/block",
+    "textures": {
+        "0": "create_compact_transmission:block/four_speed_transmission_reverse",
+		"particle": "create_compact_transmission:block/four_speed_transmission_reverse"
+    }
+}
+

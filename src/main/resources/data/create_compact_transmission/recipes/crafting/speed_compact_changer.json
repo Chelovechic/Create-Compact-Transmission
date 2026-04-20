@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "A",
+    "L",
+    "C"
+  ],
+  "key": {
+    "A": {
+      "item": "create:adjustable_chain_gearshift"
+    },
+    "L": {
+      "item": "create:clutch"
+    },
+    "C": {
+      "item": "create:cogwheel"
+    }
+  },
+  "result": {
+    "item": "create_compact_transmission:speed_compact_changer"
+  }
+}
+

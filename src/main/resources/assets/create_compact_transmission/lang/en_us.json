@@ -1,0 +1,20 @@
+{
+  "block.create_compact_transmission.compact_speed_regulator": "Compact Speed Regulator",
+  "block.create_compact_transmission.speed_compact_changer": "Compact Speed Changer with Clutch",
+  "block.create_compact_transmission.speed_doubler": "Compact Speed Changer",
+  "block.create_compact_transmission.smart_speed_doubler": "Smart Speed Doubler",
+  "block.create_compact_transmission.four_speed_transmission": "Sequential Gearbox",
+  "block.create_compact_transmission.rotator": "Rotator",
+  "block.create_compact_transmission.co2_scrubber": "CO2 Scrubber",
+  "item.create_compact_transmission.modern_injector": "Injector",
+  "item.create_compact_transmission.modern_injector.tooltip": "Reduces TFMG engine fuel consumption by 2x",
+  "item.create_compact_transmission.modern_injector.already_installed": "Injector is already installed on this engine",
+  "item.create_compact_transmission.fuel_injector": "Fuel Injector",
+  "item.create_compact_transmission.fuel_injector.tooltip": "Install on a Create Fluid Pipe to give it automatic TFMG engine refueling",
+  "item.create_compact_transmission.fuel_injector.installed": "Fuel injector installed",
+  "item.create_compact_transmission.fuel_injector.already_installed": "This pipe already has a fuel injector",
+  "item.create_compact_transmission.gearbox_setting": "Gearbox Setting",
+  "fuel_injector_installed": "Injector installed",
+  "itemGroup.create_compact_transmission.main": "Create Compact Transmission",
+  "create_compact_transmission.subtitle.shifter_sound": "Gear shifts"
+}
