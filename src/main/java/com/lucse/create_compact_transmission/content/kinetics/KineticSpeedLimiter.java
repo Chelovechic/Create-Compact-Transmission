@@ -44,12 +44,11 @@ public final class KineticSpeedLimiter {
             return 0;
         }
 
-        float safeMaxSpeed = maxSpeed > 1 ? maxSpeed - 1.0f : maxSpeed;
-        float absOutputSpeed = inputSpeed * Math.abs(requestedModifier);
-        if (Float.isFinite(absOutputSpeed) && absOutputSpeed <= safeMaxSpeed) {
+        double absOutputSpeed = inputSpeed * (double) Math.abs(requestedModifier);
+        if (Double.isFinite(absOutputSpeed) && absOutputSpeed <= maxSpeed) {
             return requestedModifier;
         }
 
-        return Math.copySign(safeMaxSpeed / inputSpeed, requestedModifier);
+        return (float) Math.copySign(maxSpeed / inputSpeed, requestedModifier);
     }
 }

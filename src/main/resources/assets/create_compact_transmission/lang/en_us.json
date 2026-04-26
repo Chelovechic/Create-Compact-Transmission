@@ -15,6 +15,13 @@
   "item.create_compact_transmission.fuel_injector.already_installed": "This pipe already has a fuel injector",
   "item.create_compact_transmission.gearbox_setting": "Gearbox Setting",
   "fuel_injector_installed": "Injector installed",
+  "gui.four_speed_transmission.title": "Transmission Ratios",
+  "gui.four_speed_transmission.subtitle": "Configure up to five gears. Scroll to tune each ratio.",
+  "gui.four_speed_transmission.gear_hint": "Adjust the multiplier for gear %s",
+  "gui.four_speed_transmission.add_gear": "Add Gear",
+  "gui.four_speed_transmission.remove_gear": "Remove Last Gear",
+  "gui.four_speed_transmission.gear_count": "Gears: %s/%s",
+  "gui.four_speed_transmission.output_disabled": "0.00x disables output rotation",
   "itemGroup.create_compact_transmission.main": "Create Compact Transmission",
   "create_compact_transmission.subtitle.shifter_sound": "Gear shifts"
 }

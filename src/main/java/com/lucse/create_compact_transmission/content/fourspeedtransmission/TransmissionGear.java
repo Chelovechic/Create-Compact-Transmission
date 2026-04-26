@@ -1,15 +1,18 @@
 package com.lucse.create_compact_transmission.content.fourspeedtransmission;
 
+import net.minecraft.util.Mth;
 import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;
 
 public enum TransmissionGear implements StringRepresentable {
-    REVERSE("reverse", "R"),
-    NEUTRAL("neutral", "N"),
-    FIRST("first", "1"),
-    SECOND("second", "2"),
-    THIRD("third", "3"),
-    FOURTH("fourth", "4");
+    REVERSE("reverse", "1"),
+    NEUTRAL("neutral", "2"),
+    FIRST("first", "3"),
+    SECOND("second", "4"),
+    THIRD("third", "5"),
+    FOURTH("fourth", "6");
+
+    private static final TransmissionGear[] ACTIVE_GEARS = {REVERSE, NEUTRAL, FIRST, SECOND, THIRD, FOURTH};
 
     private final String name;
     private final String displayName;
@@ -29,37 +32,30 @@ public enum TransmissionGear implements StringRepresentable {
         return displayName;
     }
 
-    public TransmissionGear shiftUp() {
-        return switch (this) {
-            case REVERSE -> NEUTRAL;
-            case NEUTRAL -> FIRST;
-            case FIRST -> SECOND;
-            case SECOND -> THIRD;
-            case THIRD -> FOURTH;
-            case FOURTH -> FOURTH;
-        };
+    public int getActiveIndex() {
+        for (int i = 0; i < ACTIVE_GEARS.length; i++) {
+            if (ACTIVE_GEARS[i] == this) {
+                return i;
+            }
+        }
+        return 0;
     }
 
-    public TransmissionGear shiftDown() {
-        return switch (this) {
-            case FOURTH -> THIRD;
-            case THIRD -> SECOND;
-            case SECOND -> FIRST;
-            case FIRST -> NEUTRAL;
-            case NEUTRAL -> REVERSE;
-            case REVERSE -> REVERSE;
-        };
+    public TransmissionGear clampToCount(int gearCount) {
+        return byActiveIndex(Math.min(getActiveIndex(), Mth.clamp(gearCount, 1, ACTIVE_GEARS.length) - 1));
     }
 
-    public float getDefaultMultiplier() {
-        return switch (this) {
-            case REVERSE -> -1.0f;
-            case NEUTRAL -> 0.0f;
-            case FIRST -> 0.5f;
-            case SECOND -> 1.0f;
-            case THIRD -> 1.8f;
-            case FOURTH -> 2.5f;
-        };
+    public TransmissionGear shift(boolean forward, int gearCount) {
+        int nextIndex = getActiveIndex() + (forward ? 1 : -1);
+        nextIndex = Mth.clamp(nextIndex, 0, Mth.clamp(gearCount, 1, ACTIVE_GEARS.length) - 1);
+        return byActiveIndex(nextIndex);
+    }
+
+    public static TransmissionGear byActiveIndex(int index) {
+        return ACTIVE_GEARS[Mth.clamp(index, 0, ACTIVE_GEARS.length - 1)];
+    }
+
+    public static int maxActiveGears() {
+        return ACTIVE_GEARS.length;
     }
 }
-

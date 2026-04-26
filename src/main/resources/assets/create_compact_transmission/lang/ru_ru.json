@@ -15,6 +15,13 @@
   "item.create_compact_transmission.fuel_injector.already_installed": "На этой трубе уже есть топливный инжектор",
   "item.create_compact_transmission.gearbox_setting": "Настройка коробки передач",
   "fuel_injector_installed": "Инжектор установлен",
+  "gui.four_speed_transmission.title": "Передаточные числа",
+  "gui.four_speed_transmission.subtitle": "Настрой до пяти передач. Колёсико мыши меняет множитель.",
+  "gui.four_speed_transmission.gear_hint": "Измени множитель для передачи %s",
+  "gui.four_speed_transmission.add_gear": "Добавить передачу",
+  "gui.four_speed_transmission.remove_gear": "Убрать последнюю передачу",
+  "gui.four_speed_transmission.gear_count": "Передач: %s/%s",
+  "gui.four_speed_transmission.output_disabled": "0.00x отключает выходное вращение",
   "itemGroup.create_compact_transmission.main": "Create Compact Transmission",
   "create_compact_transmission.subtitle.shifter_sound": "Переключение передач"
 }

@@ -21,13 +21,7 @@ public class FourSpeedTransmissionConfigurationPacket extends BlockEntityConfigu
 
     @Override
     protected void applySettings(FourSpeedTransmissionBlockEntity be) {
-        be.gearReverseRatio = data.getInt("gearR");
-        be.gear1Ratio = data.getInt("gear1");
-        be.gear2Ratio = data.getInt("gear2");
-        be.gear3Ratio = data.getInt("gear3");
-        be.gear4Ratio = data.getInt("gear4");
-        be.setChanged();
-        be.sendData();
+        be.applyConfiguration(data.getInt("GearCount"), data.getIntArray("GearRatios"));
         if (be.getLevel() != null) {
             RotationPropagator.handleRemoved(be.getLevel(), be.getBlockPos(), be);
             RotationPropagator.handleAdded(be.getLevel(), be.getBlockPos(), be);
@@ -44,4 +38,3 @@ public class FourSpeedTransmissionConfigurationPacket extends BlockEntityConfigu
         buffer.writeNbt(data);
     }
 }
-

@@ -59,26 +59,24 @@ public class FourSpeedTransmissionBlock extends ClutchBlock {
 
         boolean hasSignal = worldIn.getBestNeighborSignal(pos) >= 15;
         boolean previouslyPowered = state.getValue(POWERED);
+        int gearCount = getConfiguredGearCount(worldIn, pos);
 
         if (hasSignal && !previouslyPowered) {
-            TransmissionGear currentGear = state.getValue(GEAR);
+            TransmissionGear currentGear = state.getValue(GEAR).clampToCount(gearCount);
             TransmissionGear newGear = currentGear;
             boolean shiftUp = shouldShiftUp(worldIn, pos, state, direction);
-            if (shiftUp) {
-                newGear = currentGear.shiftUp();
-            } else {
-                newGear = currentGear.shiftDown();
-            }
+            newGear = currentGear.shift(shiftUp, gearCount);
 
             if (newGear != currentGear) {
                 worldIn.setBlock(pos, state.setValue(GEAR, newGear).setValue(POWERED, true), 2 | 16);
                 detachKinetics(worldIn, pos, true);
                 CCTSoundEvents.SHIFTER_SOUND.playOnServer(worldIn, pos, 0.5f, 1.0f);
             } else {
-                worldIn.setBlock(pos, state.setValue(POWERED, true), 2 | 16);
+                worldIn.setBlock(pos, state.setValue(GEAR, currentGear).setValue(POWERED, true), 2 | 16);
             }
         } else if (!hasSignal && previouslyPowered) {
-            worldIn.setBlock(pos, state.setValue(POWERED, false), 2 | 16);
+            TransmissionGear currentGear = state.getValue(GEAR).clampToCount(gearCount);
+            worldIn.setBlock(pos, state.setValue(GEAR, currentGear).setValue(POWERED, false), 2 | 16);
         }
     }
 
@@ -204,5 +202,12 @@ public class FourSpeedTransmissionBlock extends ClutchBlock {
         return CCTBlockEntityTypes.FOUR_SPEED_TRANSMISSION.get();
     }
 
-}
+    private int getConfiguredGearCount(Level level, BlockPos pos) {
+        BlockEntity be = level.getBlockEntity(pos);
+        if (be instanceof FourSpeedTransmissionBlockEntity transmission) {
+            return transmission.getGearCount();
+        }
+        return FourSpeedTransmissionBlockEntity.DEFAULT_GEAR_COUNT;
+    }
 
+}
