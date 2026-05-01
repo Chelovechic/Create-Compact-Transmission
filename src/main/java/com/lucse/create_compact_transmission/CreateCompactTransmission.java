@@ -6,13 +6,14 @@ import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import net.createmod.catnip.lang.FontHelper;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraft.world.item.CreativeModeTab;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.loading.FMLEnvironment;
 import org.slf4j.Logger;
 
 @Mod(CreateCompactTransmission.MODID)
@@ -21,20 +22,20 @@ public class CreateCompactTransmission {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public static IEventBus modEventBus;
-    private static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MODID);
+    private static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MODID)
+            .defaultCreativeTab((ResourceKey<CreativeModeTab>) null);
 
     static {
         REGISTRATE.setTooltipModifierFactory(item -> new ItemDescription.Modifier(item, FontHelper.Palette.STANDARD_CREATE)
                         .andThen(TooltipModifier.mapNull(KineticStats.create(item))));
     }
 
-    public CreateCompactTransmission() {
-        modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
+    public CreateCompactTransmission(IEventBus eventBus, ModContainer modContainer) {
+        modEventBus = eventBus;
+        IEventBus forgeEventBus = NeoForge.EVENT_BUS;
         REGISTRATE.registerEventListeners(modEventBus);
 
-        modEventBus.addListener(CCTSoundEvents::register);
-        MinecraftForge.EVENT_BUS.register(this);
+        CCTSoundEvents.register(modEventBus);
         forgeEventBus.register(new CCTCommonEvents());
 
         CCTSoundEvents.prepare();
@@ -46,7 +47,9 @@ public class CreateCompactTransmission {
         CCTCreativeTabs.register(modEventBus);
         CCTPackets.registerPackets();
 
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> CreateCompactTransmissionClient.onCtorClient(modEventBus, forgeEventBus));
+        if (FMLEnvironment.dist.isClient()) {
+            CreateCompactTransmissionClient.onCtorClient(modEventBus, forgeEventBus);
+        }
     }
 
     public static CreateRegistrate getRegistrate() {
@@ -54,6 +57,6 @@ public class CreateCompactTransmission {
     }
 
     public static ResourceLocation asResource(String path) {
-        return new ResourceLocation(MODID, path);
+        return ResourceLocation.fromNamespaceAndPath(MODID, path);
     }
 }

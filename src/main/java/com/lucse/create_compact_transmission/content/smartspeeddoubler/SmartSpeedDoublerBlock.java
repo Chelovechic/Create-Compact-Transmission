@@ -8,8 +8,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -21,8 +22,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.ticks.TickPriority;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.DistExecutor;
 
 public class SmartSpeedDoublerBlock extends ClutchBlock {
 
@@ -97,7 +96,6 @@ public class SmartSpeedDoublerBlock extends ClutchBlock {
         }
     }
     
-    @Override
     public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {
         if (worldIn.isClientSide)
             return;
@@ -109,17 +107,16 @@ public class SmartSpeedDoublerBlock extends ClutchBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand,
-                                 BlockHitResult ray) {
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player,
+                                              InteractionHand hand, BlockHitResult ray) {
         if (world.isClientSide) {
             BlockEntity be = world.getBlockEntity(pos);
             if (be instanceof SmartSpeedDoublerBlockEntity smartSpeedDoubler) {
-                DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
-                        () -> () -> SmartSpeedDoublerScreen.open(smartSpeedDoubler));
-                return InteractionResult.SUCCESS;
+                SmartSpeedDoublerScreen.open(smartSpeedDoubler);
+                return ItemInteractionResult.SUCCESS;
             }
         }
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
     @Override
@@ -128,4 +125,3 @@ public class SmartSpeedDoublerBlock extends ClutchBlock {
     }
 
 }
-

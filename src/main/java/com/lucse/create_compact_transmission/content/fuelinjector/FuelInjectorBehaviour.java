@@ -5,8 +5,9 @@ import com.lucse.create_compact_transmission.content.fueling.TFMGPipeFuelingHelp
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 
 public class FuelInjectorBehaviour extends BlockEntityBehaviour {
 
@@ -75,8 +76,8 @@ public class FuelInjectorBehaviour extends BlockEntityBehaviour {
     }
 
     @Override
-    public void read(CompoundTag nbt, boolean clientPacket) {
-        super.read(nbt, clientPacket);
+    public void read(CompoundTag nbt, HolderLookup.Provider registries, boolean clientPacket) {
+        super.read(nbt, registries, clientPacket);
         installed = nbt.getBoolean("FuelInjectorInstalled");
         if (!installed) {
             tickCounter = 0;
@@ -84,8 +85,8 @@ public class FuelInjectorBehaviour extends BlockEntityBehaviour {
     }
 
     @Override
-    public void write(CompoundTag nbt, boolean clientPacket) {
-        super.write(nbt, clientPacket);
+    public void write(CompoundTag nbt, HolderLookup.Provider registries, boolean clientPacket) {
+        super.write(nbt, registries, clientPacket);
         if (installed) {
             nbt.putBoolean("FuelInjectorInstalled", true);
         }

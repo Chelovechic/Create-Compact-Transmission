@@ -4,6 +4,7 @@ import com.lucse.create_compact_transmission.content.kinetics.KineticSpeedLimite
 import com.simibubi.create.content.kinetics.transmission.ClutchBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -99,8 +100,8 @@ public class SmartSpeedDoublerBlockEntity extends ClutchBlockEntity {
     }
 
     @Override
-    protected void read(CompoundTag compound, boolean clientPacket) {
-        super.read(compound, clientPacket);
+    protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
+        super.read(compound, registries, clientPacket);
         if (compound.contains("multiplier"))
             multiplierRatio = compound.getInt("multiplier");
         if (compound.contains("multiplierTop"))
@@ -110,8 +111,8 @@ public class SmartSpeedDoublerBlockEntity extends ClutchBlockEntity {
     }
 
     @Override
-    protected void write(CompoundTag compound, boolean clientPacket) {
-        super.write(compound, clientPacket);
+    protected void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
+        super.write(compound, registries, clientPacket);
         compound.putInt("multiplier", multiplierRatio);
         compound.putInt("multiplierTop", multiplierRatioTop);
         compound.putInt("multiplierBottom", multiplierRatioBottom);

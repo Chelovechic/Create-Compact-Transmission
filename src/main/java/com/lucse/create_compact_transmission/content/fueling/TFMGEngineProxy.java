@@ -1,6 +1,7 @@
 package com.lucse.create_compact_transmission.content.fueling;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
@@ -9,7 +10,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -156,7 +156,11 @@ public class TFMGEngineProxy {
 
     public static EngineInfo getEngineInfo(BlockGetter level, BlockPos pos, BlockState state) {
         Block block = state.getBlock();
-        String blockName = ForgeRegistries.BLOCKS.getKey(block).toString();
+        ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block);
+        if (key == null) {
+            return null;
+        }
+        String blockName = key.toString();
         if (!blockName.startsWith("tfmg:regular_engine")
                 && !blockName.startsWith("tfmg:turbine_engine")
                 && !blockName.startsWith("tfmg:radial_engine")) {
@@ -203,17 +207,17 @@ public class TFMGEngineProxy {
         return getTankSpace(getFuelTank(engineBE)) > 0;
     }
 
-    public static int fillFuelTank(Object fuelTank, net.minecraftforge.fluids.FluidStack fluid) {
+    public static int fillFuelTank(Object fuelTank, net.neoforged.neoforge.fluids.FluidStack fluid) {
         if (fuelTank == null || fluid.isEmpty()) {
             return 0;
         }
         try {
-            Class<?> ifluidHandlerClass = Class.forName("net.minecraftforge.fluids.capability.IFluidHandler");
+            Class<?> ifluidHandlerClass = Class.forName("net.neoforged.neoforge.fluids.capability.IFluidHandler");
             Method fillMethod = ifluidHandlerClass.getMethod("fill",
-                    net.minecraftforge.fluids.FluidStack.class,
-                    Class.forName("net.minecraftforge.fluids.capability.IFluidHandler$FluidAction"));
+                    net.neoforged.neoforge.fluids.FluidStack.class,
+                    Class.forName("net.neoforged.neoforge.fluids.capability.IFluidHandler$FluidAction"));
             @SuppressWarnings({"unchecked", "rawtypes"})
-            Class actionClass = Class.forName("net.minecraftforge.fluids.capability.IFluidHandler$FluidAction");
+            Class actionClass = Class.forName("net.neoforged.neoforge.fluids.capability.IFluidHandler$FluidAction");
             Enum<?> executeAction = Enum.valueOf(actionClass, "EXECUTE");
 
             return (Integer) fillMethod.invoke(fuelTank, fluid, executeAction);

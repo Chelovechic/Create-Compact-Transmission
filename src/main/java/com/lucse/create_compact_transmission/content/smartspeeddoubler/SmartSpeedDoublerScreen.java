@@ -2,11 +2,11 @@ package com.lucse.create_compact_transmission.content.smartspeeddoubler;
 
 import com.lucse.create_compact_transmission.CCTBlocks;
 import com.lucse.create_compact_transmission.CCTGuiTextures;
-import com.lucse.create_compact_transmission.CCTPackets;
 import com.simibubi.create.foundation.gui.AllIcons;
 import com.simibubi.create.foundation.gui.widget.IconButton;
 import com.simibubi.create.foundation.gui.widget.ScrollInput;
 import com.simibubi.create.foundation.utility.CreateLang;
+import net.createmod.catnip.platform.CatnipServices;
 import net.createmod.catnip.gui.AbstractSimiScreen;
 import net.createmod.catnip.gui.element.GuiGameElement;
 import net.minecraft.client.gui.GuiGraphics;
@@ -100,8 +100,7 @@ public class SmartSpeedDoublerScreen extends AbstractSimiScreen {
         nbt.putInt("multiplierTop", be.multiplierRatioTop);
         nbt.putInt("multiplierBottom", be.multiplierRatioBottom);
         
-        CCTPackets.getChannel().sendToServer(new SmartSpeedDoublerConfigurationPacket(be.getBlockPos(), nbt));
+        CatnipServices.NETWORK.sendToServer(new SmartSpeedDoublerConfigurationPacket(be.getBlockPos(), nbt));
         super.removed();
     }
 }
-

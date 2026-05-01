@@ -10,6 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -64,9 +65,9 @@ public class ModernInjectorItem extends Item {
                 java.lang.reflect.Method setMethod = be.getClass().getMethod("setModernInjectorInstalled", boolean.class);
                 setMethod.invoke(be, true);
             } catch (Exception e) {
-                CompoundTag nbt = be.saveWithFullMetadata();
+                CompoundTag nbt = be.saveWithFullMetadata(level.registryAccess());
                 nbt.putBoolean("modernInjectorInstalled", true);
-                be.load(nbt);
+                be.loadWithComponents(nbt, level.registryAccess());
             }
             be.setChanged();
             level.playSound(null, pos, SoundEvents.ANVIL_USE, SoundSource.BLOCKS, 0.5f, 1.2f);
@@ -99,7 +100,10 @@ public class ModernInjectorItem extends Item {
                 java.lang.reflect.Method getMethod = engineBE.getClass().getMethod("isModernInjectorInstalled");
                 return (Boolean) getMethod.invoke(engineBE);
             } catch (Exception e) {
-                CompoundTag nbt = engineBE.saveWithFullMetadata();
+                if (engineBE.getLevel() == null) {
+                    return false;
+                }
+                CompoundTag nbt = engineBE.saveWithFullMetadata(engineBE.getLevel().registryAccess());
                 return nbt.getBoolean("modernInjectorInstalled");
             }
         } catch (Exception e) {
@@ -109,9 +113,8 @@ public class ModernInjectorItem extends Item {
 
 
     @Override
-    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(stack, level, tooltip, flag);
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+        super.appendHoverText(stack, context, tooltip, flag);
         tooltip.add(Component.translatable("item.create_compact_transmission.modern_injector.tooltip"));
     }
 }
-

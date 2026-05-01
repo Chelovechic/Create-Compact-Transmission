@@ -2,6 +2,7 @@ package com.lucse.create_compact_transmission.mixin.tfmg;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.HolderLookup;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Unique;
@@ -23,26 +24,26 @@ public abstract class AbstractEngineBlockEntityMixin extends BlockEntity {
 
     @Inject(
             at = @At("TAIL"),
-            method = "write(Lnet/minecraft/nbt/CompoundTag;Z)V",
+            method = "write(Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/core/HolderLookup$Provider;Z)V",
             remap = false
     )
-    private void writeModernInjectorFlag(CompoundTag compound, boolean clientPacket, CallbackInfo ci) {
+    private void writeModernInjectorFlag(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket, CallbackInfo ci) {
         compound.putBoolean("modernInjectorInstalled", modernInjectorInstalled);
     }
 
     @Inject(
             at = @At("TAIL"),
-            method = "read(Lnet/minecraft/nbt/CompoundTag;Z)V",
+            method = "read(Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/core/HolderLookup$Provider;Z)V",
             remap = false
     )
-    private void readModernInjectorFlag(CompoundTag compound, boolean clientPacket, CallbackInfo ci) {
+    private void readModernInjectorFlag(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket, CallbackInfo ci) {
         modernInjectorInstalled = compound.getBoolean("modernInjectorInstalled");
     }
 
     @ModifyArg(
             at = @At(
                     value = "INVOKE",
-                    target = "Lcom/drmangotea/tfmg/content/engines/base/EngineFluidTank;forceDrain(ILnet/minecraftforge/fluids/capability/IFluidHandler$FluidAction;)Lnet/minecraftforge/fluids/FluidStack;",
+                    target = "Lcom/drmangotea/tfmg/content/engines/base/EngineFluidTank;forceDrain(ILnet/neoforged/neoforge/fluids/capability/IFluidHandler$FluidAction;)Lnet/neoforged/neoforge/fluids/FluidStack;",
                     remap = false
             ),
             method = "manageFuelAndExhaust()V",
@@ -69,4 +70,3 @@ public abstract class AbstractEngineBlockEntityMixin extends BlockEntity {
         return modernInjectorInstalled;
     }
 }
-

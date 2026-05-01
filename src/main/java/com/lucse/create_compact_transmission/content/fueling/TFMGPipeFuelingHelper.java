@@ -8,11 +8,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 
 import javax.annotation.Nullable;
 import java.util.ArrayDeque;
@@ -100,7 +99,7 @@ public final class TFMGPipeFuelingHelper {
                     }
 
                     IFluidHandler handler = getFluidHandler(neighborBlockEntity, direction.getOpposite());
-                    if (containsAllowedFuel(handler)) {
+                    if (containsAnyFluid(handler)) {
                         return handler;
                     }
                 }
@@ -126,35 +125,41 @@ public final class TFMGPipeFuelingHelper {
             return false;
         }
 
-        FluidStack toTransfer = FluidStack.EMPTY;
         for (int i = 0; i < sourceHandler.getTanks(); i++) {
             FluidStack fluid = sourceHandler.getFluidInTank(i);
-            if (!fluid.isEmpty() && TFMGEngineProxy.isAllowedFuel(fluid.getFluid())) {
-                toTransfer = fluid.copy();
-                toTransfer.setAmount(Math.min(Math.min(transferRate, space), fluid.getAmount()));
-                break;
+            if (fluid.isEmpty()) {
+                continue;
             }
+            // Old behavior: only allow specific fuel fluids.
+            // if (!TFMGEngineProxy.isAllowedFuel(fluid.getFluid())) {
+            //     continue;
+            // }
+
+            FluidStack toTransfer = fluid.copy();
+            toTransfer.setAmount(Math.min(Math.min(transferRate, space), fluid.getAmount()));
+
+            FluidStack drained = sourceHandler.drain(toTransfer, FluidAction.SIMULATE);
+            if (drained.isEmpty()) {
+                continue;
+            }
+            // Old behavior: only allow specific fuel fluids.
+            // if (!TFMGEngineProxy.isAllowedFuel(drained.getFluid())) {
+            //     continue;
+            // }
+
+            int filled = TFMGEngineProxy.fillFuelTank(fuelTank, drained);
+            if (filled <= 0) {
+                continue;
+            }
+
+            FluidStack toDrain = drained.copy();
+            toDrain.setAmount(filled);
+            sourceHandler.drain(toDrain, FluidAction.EXECUTE);
+            blockEntity.setChanged();
+            return true;
         }
 
-        if (toTransfer.isEmpty()) {
-            return false;
-        }
-
-        FluidStack drained = sourceHandler.drain(toTransfer, FluidAction.SIMULATE);
-        if (drained.isEmpty() || !TFMGEngineProxy.isAllowedFuel(drained.getFluid())) {
-            return false;
-        }
-
-        int filled = TFMGEngineProxy.fillFuelTank(fuelTank, drained);
-        if (filled <= 0) {
-            return false;
-        }
-
-        FluidStack toDrain = drained.copy();
-        toDrain.setAmount(filled);
-        sourceHandler.drain(toDrain, FluidAction.EXECUTE);
-        blockEntity.setChanged();
-        return true;
+        return false;
     }
 
     private static List<Direction> getConnectedDirections(SmartBlockEntity blockEntity) {
@@ -175,14 +180,18 @@ public final class TFMGPipeFuelingHelper {
         return FluidPropagator.getPipeConnections(blockEntity.getBlockState(), pipe);
     }
 
-    private static boolean containsAllowedFuel(@Nullable IFluidHandler handler) {
+    private static boolean containsAnyFluid(@Nullable IFluidHandler handler) {
         if (handler == null) {
             return false;
         }
 
         for (int i = 0; i < handler.getTanks(); i++) {
             FluidStack fluid = handler.getFluidInTank(i);
-            if (!fluid.isEmpty() && TFMGEngineProxy.isAllowedFuel(fluid.getFluid())) {
+            if (!fluid.isEmpty()) {
+                // Old behavior: only allow specific fuel fluids.
+                // if (TFMGEngineProxy.isAllowedFuel(fluid.getFluid())) {
+                //     return true;
+                // }
                 return true;
             }
         }
@@ -192,12 +201,11 @@ public final class TFMGPipeFuelingHelper {
 
     @Nullable
     private static IFluidHandler getFluidHandler(@Nullable BlockEntity blockEntity, Direction side) {
-        if (blockEntity == null) {
+        if (blockEntity == null || blockEntity.getLevel() == null) {
             return null;
         }
 
-        LazyOptional<IFluidHandler> capability = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, side);
-        return capability.resolve().orElse(null);
+        return blockEntity.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, blockEntity.getBlockPos(), side);
     }
 
     public record FuelTarget(Object fuelTank, BlockPos enginePos) {

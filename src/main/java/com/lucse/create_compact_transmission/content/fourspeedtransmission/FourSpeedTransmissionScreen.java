@@ -1,10 +1,10 @@
 package com.lucse.create_compact_transmission.content.fourspeedtransmission;
 
 import com.lucse.create_compact_transmission.CCTGuiTextures;
-import com.lucse.create_compact_transmission.CCTPackets;
 import com.simibubi.create.foundation.gui.AllIcons;
 import com.simibubi.create.foundation.gui.widget.IconButton;
 import com.simibubi.create.foundation.gui.widget.ScrollInput;
+import net.createmod.catnip.platform.CatnipServices;
 import net.createmod.catnip.gui.AbstractSimiScreen;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.nbt.CompoundTag;
@@ -106,7 +106,7 @@ public class FourSpeedTransmissionScreen extends AbstractSimiScreen {
         nbt.putInt("GearCount", editedGearCount);
         nbt.putIntArray("GearRatios", editedRatios);
         
-        CCTPackets.getChannel().sendToServer(new FourSpeedTransmissionConfigurationPacket(be.getBlockPos(), nbt));
+        CatnipServices.NETWORK.sendToServer(new FourSpeedTransmissionConfigurationPacket(be.getBlockPos(), nbt));
         super.removed();
     }
 

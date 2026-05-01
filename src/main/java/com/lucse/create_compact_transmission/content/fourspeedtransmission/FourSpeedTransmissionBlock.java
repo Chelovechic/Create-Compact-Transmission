@@ -11,7 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -21,10 +21,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.ticks.TickPriority;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.DistExecutor;
+import net.minecraft.world.ticks.TickPriority;
 
 public class FourSpeedTransmissionBlock extends ClutchBlock {
 
@@ -166,7 +164,6 @@ public class FourSpeedTransmissionBlock extends ClutchBlock {
         return true;
     }
 
-    @Override
     public void detachKinetics(Level worldIn, BlockPos pos, boolean reAttachNextTick) {
         BlockEntity be = worldIn.getBlockEntity(pos);
         if (be == null || !(be instanceof KineticBlockEntity))
@@ -177,24 +174,23 @@ public class FourSpeedTransmissionBlock extends ClutchBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand,
-                                 BlockHitResult ray) {
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player,
+                                              InteractionHand hand, BlockHitResult ray) {
         ItemStack heldItem = player.getItemInHand(hand);
         boolean hasGearboxSetting = heldItem.is(CCTItems.GEARBOX_SETTING.get());
         boolean isCreative = player.canUseGameMasterBlocks();
 
         if (!hasGearboxSetting && !isCreative) {
-            return InteractionResult.PASS;
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
 
         if (world.isClientSide) {
             BlockEntity be = world.getBlockEntity(pos);
             if (be instanceof FourSpeedTransmissionBlockEntity transmission) {
-                DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
-                        () -> () -> FourSpeedTransmissionScreen.open(transmission));
+                FourSpeedTransmissionScreen.open(transmission);
             }
         }
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
     @Override
