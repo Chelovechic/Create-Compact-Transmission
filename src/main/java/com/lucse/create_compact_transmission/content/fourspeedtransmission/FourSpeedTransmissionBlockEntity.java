@@ -1,5 +1,6 @@
 package com.lucse.create_compact_transmission.content.fourspeedtransmission;
 
+import com.lucse.create_compact_transmission.Config;
 import com.lucse.create_compact_transmission.content.kinetics.KineticSpeedLimiter;
 import com.simibubi.create.content.kinetics.transmission.ClutchBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -16,8 +17,14 @@ public class FourSpeedTransmissionBlockEntity extends ClutchBlockEntity {
 
     public static final int MAX_GEARS = 6;
     public static final int DEFAULT_GEAR_COUNT = 4;
-    public static final int MIN_RATIO = -400;
-    public static final int MAX_RATIO = 400;
+
+    public static int minRatio() {
+        return -Config.FOUR_KPP_MAX.get();
+    }
+
+    public static int maxRatio() {
+        return Config.FOUR_KPP_MAX.get();
+    }
 
     private int gearCount = DEFAULT_GEAR_COUNT;
     private final int[] gearRatios = createDefaultRatios();
@@ -114,7 +121,7 @@ public class FourSpeedTransmissionBlockEntity extends ClutchBlockEntity {
     }
 
     public static int sanitizeRatio(int value) {
-        return Mth.clamp(value, MIN_RATIO, MAX_RATIO);
+        return Mth.clamp(value, minRatio(), maxRatio());
     }
 
     public static int defaultRatio(int index) {

@@ -1,5 +1,6 @@
 package com.lucse.create_compact_transmission.mixin.tfmg;
 
+import com.lucse.create_compact_transmission.content.moderninjector.ModernInjectorItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.core.HolderLookup;
@@ -57,7 +58,7 @@ public abstract class AbstractEngineBlockEntityMixin extends BlockEntity {
         if (originalAmount <= 0) {
             return 0;
         }
-        return Math.max(1, (int) (originalAmount * 0.5f));
+        return Math.max(1, (int) (originalAmount * ModernInjectorItem.FUEL_CONSUMPTION_MULTIPLIER));
     }
 
     @Unique

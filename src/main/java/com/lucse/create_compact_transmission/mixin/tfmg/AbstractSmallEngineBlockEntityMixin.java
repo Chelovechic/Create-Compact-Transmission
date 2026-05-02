@@ -32,7 +32,7 @@ public abstract class AbstractSmallEngineBlockEntityMixin extends BlockEntity {
         if (!ModernInjectorItem.isInstalled(this)) {
             return originalConsumption;
         }
-        return originalConsumption * 0.5F;
+        return originalConsumption * ModernInjectorItem.FUEL_CONSUMPTION_MULTIPLIER;
     }
 
     @Inject(

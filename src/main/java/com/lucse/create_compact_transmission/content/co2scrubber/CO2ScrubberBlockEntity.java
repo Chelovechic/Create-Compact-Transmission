@@ -1,5 +1,6 @@
 package com.lucse.create_compact_transmission.content.co2scrubber;
 
+import com.lucse.create_compact_transmission.Config;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.fluids.FluidPropagator;
@@ -30,7 +31,6 @@ import java.util.Queue;
 
 public class CO2ScrubberBlockEntity extends SmartBlockEntity {
 
-    private static final int DRAIN_RATE = 200;
     private static final int TICK_RATE = 5;
 
     private static final String TFMG_ENGINE_CLASS = "com.drmangotea.tfmg.content.engines.base.AbstractEngineBlockEntity";
@@ -129,7 +129,7 @@ public class CO2ScrubberBlockEntity extends SmartBlockEntity {
             if (!isEmpty) {
                 FluidStack drainStack = new FluidStack(
                     (net.minecraft.world.level.material.Fluid) carbonDioxideFluid,
-                    DRAIN_RATE
+                    Config.C02SCRUB_POWER.get()
                 );
                 FluidStack drained = (FluidStack) exhaustTank.getClass()
                     .getMethod("drain", FluidStack.class, IFluidHandler.FluidAction.class)

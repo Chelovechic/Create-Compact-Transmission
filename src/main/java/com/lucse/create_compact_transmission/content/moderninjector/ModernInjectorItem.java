@@ -18,6 +18,9 @@ import java.util.List;
 
 public class ModernInjectorItem extends Item {
 
+    
+    public static final float FUEL_CONSUMPTION_MULTIPLIER = 0.75F;
+
     private static Class<?> abstractEngineBlockEntityClass;
     private static Class<?> abstractSmallEngineBlockEntityClass;
 

@@ -11,10 +11,25 @@ import net.createmod.catnip.gui.AbstractSimiScreen;
 import net.createmod.catnip.gui.element.GuiGameElement;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.Locale;
+
 public class SmartSpeedDoublerScreen extends AbstractSimiScreen {
+
+    private static final int ROW_HEIGHT = 18;
+    private static final int START_Y = 24;
+    private static final int LABEL_TO_INPUT_GAP = 4;
+    private static final int INPUT_WIDTH = 56;
+    private static final int INPUT_HEIGHT = 14;
+    private static final int CONFIRM_GAP_BELOW_ROWS = 6;
+
+    private static final String LABEL_MAIN = "main:";
+    private static final String LABEL_TOP = "top:";
+    private static final String LABEL_BOTTOM = "botton:";
+
+    private int labelColumnLeft = 8;
+    private int inputX = 52;
 
     private final ItemStack renderedItem = CCTBlocks.SMART_SPEED_DOUBLER.asStack();
     private final CCTGuiTextures background = CCTGuiTextures.SMART_SPEED_DOUBLER;
@@ -37,36 +52,43 @@ public class SmartSpeedDoublerScreen extends AbstractSimiScreen {
     @Override
     protected void init() {
         setWindowSize(background.getWidth(), background.getHeight());
-        setWindowOffset(-20, 0);
+        setWindowOffset(0, 0);
         super.init();
 
         int x = guiLeft;
         int y = guiTop;
-        int rowHeight = 22;
-        int startY = y + 20;
 
-        multiplierInput = new ScrollInput(x + 58, startY, 58, 18)
-                .calling(state -> be.multiplierRatio = state)
-                .withRange(100, 400)
-                .setState(be.multiplierRatio)
-                .titled(Component.literal("main: "));
+        int maxLabelW = Math.max(Math.max(font.width(LABEL_MAIN), font.width(LABEL_TOP)), font.width(LABEL_BOTTOM));
+        int contentWidth = maxLabelW + LABEL_TO_INPUT_GAP + INPUT_WIDTH;
+        int contentLeft = x + (background.getWidth() - contentWidth) / 2;
+        labelColumnLeft = contentLeft;
+        inputX = contentLeft + maxLabelW + LABEL_TO_INPUT_GAP;
+
+        multiplierInput = new CompactScrollInput(inputX, y + START_Y + 2, INPUT_WIDTH, INPUT_HEIGHT)
+                .calling(state -> be.multiplierRatio = SmartSpeedDoublerBlockEntity.sanitizeMultiplierRatio(state))
+                .withRange(SmartSpeedDoublerBlockEntity.minMultiplierRatio(), SmartSpeedDoublerBlockEntity.maxMultiplierRatio() + 1)
+                .withShiftStep(10)
+                .setState(be.multiplierRatio);
         addRenderableWidget(multiplierInput);
 
-        multiplierTopInput = new ScrollInput(x + 58, startY + rowHeight, 58, 18)
-                .calling(state -> be.multiplierRatioTop = state)
-                .withRange(100, 400)
-                .setState(be.multiplierRatioTop)
-                .titled(Component.literal("top: "));
+        multiplierTopInput = new CompactScrollInput(inputX, y + START_Y + ROW_HEIGHT + 2, INPUT_WIDTH, INPUT_HEIGHT)
+                .calling(state -> be.multiplierRatioTop = SmartSpeedDoublerBlockEntity.sanitizeMultiplierRatio(state))
+                .withRange(SmartSpeedDoublerBlockEntity.minMultiplierRatio(), SmartSpeedDoublerBlockEntity.maxMultiplierRatio() + 1)
+                .withShiftStep(10)
+                .setState(be.multiplierRatioTop);
         addRenderableWidget(multiplierTopInput);
 
-        multiplierBottomInput = new ScrollInput(x + 58, startY + rowHeight * 2, 58, 18)
-                .calling(state -> be.multiplierRatioBottom = state)
-                .withRange(100, 400)
-                .setState(be.multiplierRatioBottom)
-                .titled(Component.literal("botton: "));
+        multiplierBottomInput = new CompactScrollInput(inputX, y + START_Y + ROW_HEIGHT * 2 + 2, INPUT_WIDTH, INPUT_HEIGHT)
+                .calling(state -> be.multiplierRatioBottom = SmartSpeedDoublerBlockEntity.sanitizeMultiplierRatio(state))
+                .withRange(SmartSpeedDoublerBlockEntity.minMultiplierRatio(), SmartSpeedDoublerBlockEntity.maxMultiplierRatio() + 1)
+                .withShiftStep(10)
+                .setState(be.multiplierRatioBottom);
         addRenderableWidget(multiplierBottomInput);
 
-        confirmButton = new IconButton(x + background.getWidth() - 33, y + background.getHeight() - 24, AllIcons.I_CONFIRM);
+        int rowsBottom = y + START_Y + ROW_HEIGHT * 3;
+        int confirmX = inputX + INPUT_WIDTH / 2 - 9;
+        int confirmY = rowsBottom + CONFIRM_GAP_BELOW_ROWS;
+        confirmButton = new IconButton(confirmX, confirmY, AllIcons.I_CONFIRM);
         confirmButton.withCallback(this::onClose);
         addRenderableWidget(confirmButton);
     }
@@ -82,15 +104,29 @@ public class SmartSpeedDoublerScreen extends AbstractSimiScreen {
                 .at(x + background.getWidth() + 6, y + background.getHeight() - 56, -200)
                 .render(graphics);
 
-        int startY = y + 24;
-        int rowHeight = 22;
-        graphics.drawString(font, "main:", x + 30, startY, 0x5B5B5B, false);
-        graphics.drawString(font, "top:", x + 30, startY + rowHeight, 0x5B5B5B, false);
-        graphics.drawString(font, "botton:", x + 30, startY + rowHeight * 2, 0x5B5B5B, false);
+        drawLabeledRow(graphics, y, 0, LABEL_MAIN, be.multiplierRatio);
+        drawLabeledRow(graphics, y, 1, LABEL_TOP, be.multiplierRatioTop);
+        drawLabeledRow(graphics, y, 2, LABEL_BOTTOM, be.multiplierRatioBottom);
+    }
 
-        graphics.drawString(font, String.format("%.2f", multiplierInput.getState() / 100.0f), x + 120, startY, 0xFFFFFF, false);
-        graphics.drawString(font, String.format("%.2f", multiplierTopInput.getState() / 100.0f), x + 120, startY + rowHeight, 0xFFFFFF, false);
-        graphics.drawString(font, String.format("%.2f", multiplierBottomInput.getState() / 100.0f), x + 120, startY + rowHeight * 2, 0xFFFFFF, false);
+    private void drawLabeledRow(GuiGraphics graphics, int y, int rowIndex, String label, int ratioHundredths) {
+        int rowY = y + START_Y + ROW_HEIGHT * rowIndex;
+        graphics.drawString(font, label, labelColumnLeft, rowY + 5, 0x5B5B5B, false);
+
+        String ratioText = formatRatio(ratioHundredths);
+        int ratioX = inputX + (INPUT_WIDTH - font.width(ratioText)) / 2;
+        graphics.drawString(font, ratioText, ratioX, rowY + 5, getRatioColor(ratioHundredths), false);
+    }
+
+    private static String formatRatio(int value) {
+        return String.format(Locale.ROOT, "%.2fx", value / 100.0f);
+    }
+
+    private static int getRatioColor(int value) {
+        if (value == 0) {
+            return 0x9A9A9A;
+        }
+        return value < 0 ? 0xD97373 : 0xFFFFFF;
     }
 
     @Override
@@ -99,8 +135,22 @@ public class SmartSpeedDoublerScreen extends AbstractSimiScreen {
         nbt.putInt("multiplier", be.multiplierRatio);
         nbt.putInt("multiplierTop", be.multiplierRatioTop);
         nbt.putInt("multiplierBottom", be.multiplierRatioBottom);
-        
+
         CatnipServices.NETWORK.sendToServer(new SmartSpeedDoublerConfigurationPacket(be.getBlockPos(), nbt));
         super.removed();
+    }
+
+    private static class CompactScrollInput extends ScrollInput {
+
+        public CompactScrollInput(int x, int y, int width, int height) {
+            super(x, y, width, height);
+            title = null;
+            updateTooltip();
+        }
+
+        @Override
+        protected void updateTooltip() {
+            toolTip.clear();
+        }
     }
 }

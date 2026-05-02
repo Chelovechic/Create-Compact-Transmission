@@ -1,11 +1,13 @@
 package com.lucse.create_compact_transmission.content.smartspeeddoubler;
 
+import com.lucse.create_compact_transmission.Config;
 import com.lucse.create_compact_transmission.content.kinetics.KineticSpeedLimiter;
 import com.simibubi.create.content.kinetics.transmission.ClutchBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -17,6 +19,18 @@ public class SmartSpeedDoublerBlockEntity extends ClutchBlockEntity {
 
     public SmartSpeedDoublerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
+    }
+
+    public static int minMultiplierRatio() {
+        return -Config.SIMPLE_KPP_MAX.get();
+    }
+
+    public static int maxMultiplierRatio() {
+        return Config.SIMPLE_KPP_MAX.get();
+    }
+
+    public static int sanitizeMultiplierRatio(int value) {
+        return Mth.clamp(value, minMultiplierRatio(), maxMultiplierRatio());
     }
 
     @Override
@@ -103,11 +117,11 @@ public class SmartSpeedDoublerBlockEntity extends ClutchBlockEntity {
     protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
         super.read(compound, registries, clientPacket);
         if (compound.contains("multiplier"))
-            multiplierRatio = compound.getInt("multiplier");
+            multiplierRatio = sanitizeMultiplierRatio(compound.getInt("multiplier"));
         if (compound.contains("multiplierTop"))
-            multiplierRatioTop = compound.getInt("multiplierTop");
+            multiplierRatioTop = sanitizeMultiplierRatio(compound.getInt("multiplierTop"));
         if (compound.contains("multiplierBottom"))
-            multiplierRatioBottom = compound.getInt("multiplierBottom");
+            multiplierRatioBottom = sanitizeMultiplierRatio(compound.getInt("multiplierBottom"));
     }
 
     @Override

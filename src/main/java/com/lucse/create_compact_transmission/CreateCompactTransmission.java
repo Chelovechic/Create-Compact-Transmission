@@ -13,6 +13,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.loading.FMLEnvironment;
 import org.slf4j.Logger;
 
@@ -31,6 +32,7 @@ public class CreateCompactTransmission {
     }
 
     public CreateCompactTransmission(IEventBus eventBus, ModContainer modContainer) {
+        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
         modEventBus = eventBus;
         IEventBus forgeEventBus = NeoForge.EVENT_BUS;
         REGISTRATE.registerEventListeners(modEventBus);

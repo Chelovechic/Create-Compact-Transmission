@@ -62,7 +62,7 @@ public class FourSpeedTransmissionScreen extends AbstractSimiScreen {
                     .calling(state -> {
                         editedRatios[index] = FourSpeedTransmissionBlockEntity.sanitizeRatio(state);
                     })
-                    .withRange(FourSpeedTransmissionBlockEntity.MIN_RATIO, FourSpeedTransmissionBlockEntity.MAX_RATIO + 1)
+                    .withRange(FourSpeedTransmissionBlockEntity.minRatio(), FourSpeedTransmissionBlockEntity.maxRatio() + 1)
                     .withShiftStep(10)
                     .setState(editedRatios[i]);
             gearInputs[i] = input;

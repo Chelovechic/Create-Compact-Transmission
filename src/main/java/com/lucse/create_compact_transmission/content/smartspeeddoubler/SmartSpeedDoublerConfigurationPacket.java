@@ -27,9 +27,9 @@ public class SmartSpeedDoublerConfigurationPacket extends BlockEntityConfigurati
 
     @Override
     protected void applySettings(ServerPlayer player, SmartSpeedDoublerBlockEntity be) {
-        be.multiplierRatio = data.getInt("multiplier");
-        be.multiplierRatioTop = data.getInt("multiplierTop");
-        be.multiplierRatioBottom = data.getInt("multiplierBottom");
+        be.multiplierRatio = SmartSpeedDoublerBlockEntity.sanitizeMultiplierRatio(data.getInt("multiplier"));
+        be.multiplierRatioTop = SmartSpeedDoublerBlockEntity.sanitizeMultiplierRatio(data.getInt("multiplierTop"));
+        be.multiplierRatioBottom = SmartSpeedDoublerBlockEntity.sanitizeMultiplierRatio(data.getInt("multiplierBottom"));
         be.setChanged();
         be.sendData();
         if (be.getLevel() != null) {
