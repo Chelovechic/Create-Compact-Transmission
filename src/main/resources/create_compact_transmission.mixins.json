@@ -8,7 +8,8 @@
   "mixins": [
     "create.EncasedPipeBlockMixin",
     "tfmg.AbstractEngineBlockEntityMixin",
-    "tfmg.AbstractSmallEngineBlockEntityMixin"
+    "tfmg.AbstractSmallEngineBlockEntityMixin",
+    "tfmg.RegularEngineBlockEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

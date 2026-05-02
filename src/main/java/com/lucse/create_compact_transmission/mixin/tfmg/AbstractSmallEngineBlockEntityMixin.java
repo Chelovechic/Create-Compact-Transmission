@@ -7,8 +7,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Pseudo
 @Mixin(targets = "com.drmangotea.tfmg.content.engines.types.AbstractSmallEngineBlockEntity", remap = false)
@@ -18,22 +18,21 @@ public abstract class AbstractSmallEngineBlockEntityMixin extends BlockEntity {
         super(null, null, null);
     }
 
-    @Inject(
-            at = @At("RETURN"),
-            method = "getFuelConsumption()I",
-            cancellable = true,
+    @ModifyArg(
+            method = "addToGoggleTooltip(Ljava/util/List;Z)Z",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/drmangotea/tfmg/base/lang/TFMGTexts$Engine;fuelConsumption(F)Lnet/createmod/catnip/lang/LangBuilder;",
+                    remap = false
+            ),
+            index = 0,
             remap = false
     )
-    private void modifyFuelConsumption(CallbackInfoReturnable<Integer> cir) {
+    private float modifyFuelConsumptionTooltip(float originalConsumption) {
         if (!ModernInjectorItem.isInstalled(this)) {
-            return;
+            return originalConsumption;
         }
-        int originalConsumption = cir.getReturnValue();
-        if (originalConsumption <= 0) {
-            return;
-        }
-        int modifiedConsumption = Math.max(1, (int) (originalConsumption * 0.5f));
-        cir.setReturnValue(modifiedConsumption);
+        return originalConsumption * 0.5F;
     }
 
     @Inject(
