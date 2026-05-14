@@ -1,0 +1,11 @@
+{
+  "values": [
+    "create_compact_transmission:compact_speed_regulator",
+    "create_compact_transmission:speed_compact_changer",
+    "create_compact_transmission:rotator",
+    "create_compact_transmission:speed_doubler",
+    "create_compact_transmission:four_speed_transmission",
+    "create_compact_transmission:smart_speed_doubler",
+    "create_compact_transmission:co2_scrubber"
+  ]
+}

@@ -12,6 +12,7 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
+import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import net.minecraft.client.renderer.RenderType;
@@ -41,6 +42,7 @@ public class CCTBlocks {
             .addLayer(() -> RenderType::cutoutMipped)
             .transform(axeOrPickaxe())
             .blockstate(axisBlockProvider(false))
+            .loot((lt, block) -> lt.dropSelf(block))
             .item()
             .transform(customItemModel())
             .register();
@@ -51,6 +53,7 @@ public class CCTBlocks {
             .addLayer(() -> RenderType::cutoutMipped)
             .transform(axeOrPickaxe())
             .blockstate((c, p) -> axisBlock(c, p, forPowered(c, p)))
+            .loot((lt, block) -> lt.dropSelf(block))
             .item()
             .transform(customItemModel())
             .register();
@@ -61,6 +64,7 @@ public class CCTBlocks {
             .addLayer(() -> RenderType::cutoutMipped)
             .transform(axeOrPickaxe())
             .blockstate((c, p) -> {})
+            .loot((lt, block) -> lt.dropSelf(block))
             .item()
             .transform(customItemModel())
             .register();
@@ -71,6 +75,7 @@ public class CCTBlocks {
             .addLayer(() -> RenderType::cutoutMipped)
             .transform(axeOrPickaxe())
             .blockstate((c, p) -> axisBlock(c, p, forPowered(c, p)))
+            .loot((lt, block) -> lt.dropSelf(block))
             .item()
             .transform(customItemModel())
             .register();
@@ -81,6 +86,7 @@ public class CCTBlocks {
             .addLayer(() -> RenderType::cutoutMipped)
             .transform(axeOrPickaxe())
             .blockstate(fourSpeedTransmission())
+            .loot((lt, block) -> lt.dropSelf(block))
             .item()
             .transform(customItemModel())
             .register();
@@ -91,6 +97,7 @@ public class CCTBlocks {
             .addLayer(() -> RenderType::cutoutMipped)
             .transform(axeOrPickaxe())
             .blockstate((c, p) -> axisBlock(c, p, forPowered(c, p)))
+            .loot((lt, block) -> lt.dropSelf(block))
             .item()
             .transform(customItemModel())
             .register();
@@ -139,6 +146,7 @@ public class CCTBlocks {
                                     .build();
                         }, CO2ScrubberBlock.ACTIVE);
             })
+            .loot((lt, block) -> lt.dropSelf(block))
             .item()
             .transform(customItemModel())
             .register();
