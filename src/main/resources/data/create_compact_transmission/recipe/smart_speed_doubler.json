@@ -17,7 +17,8 @@
     }
   },
   "result": {
-    "item": "create_compact_transmission:smart_speed_doubler"
+    "id": "create_compact_transmission:smart_speed_doubler",
+    "count": 1
   }
 }
 

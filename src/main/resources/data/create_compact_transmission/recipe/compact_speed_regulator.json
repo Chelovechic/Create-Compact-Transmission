@@ -17,7 +17,8 @@
     }
   },
   "result": {
-    "item": "create_compact_transmission:compact_speed_regulator"
+    "id": "create_compact_transmission:compact_speed_regulator",
+    "count": 1
   }
 }
 

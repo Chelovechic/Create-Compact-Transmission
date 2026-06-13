@@ -17,7 +17,8 @@
     }
   },
   "result": {
-    "item": "create_compact_transmission:rotator"
+    "id": "create_compact_transmission:rotator",
+    "count": 1
   }
 }
 

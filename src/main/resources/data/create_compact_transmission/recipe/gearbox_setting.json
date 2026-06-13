@@ -14,7 +14,8 @@
     }
   },
   "result": {
-    "item": "create_compact_transmission:gearbox_setting"
+    "id": "create_compact_transmission:gearbox_setting",
+    "count": 1
   }
 }
 

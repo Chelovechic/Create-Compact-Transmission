@@ -17,6 +17,7 @@
     }
   },
   "result": {
-    "item": "create_compact_transmission:fuel_injector"
+    "id": "create_compact_transmission:fuel_injector",
+    "count": 1
   }
 }

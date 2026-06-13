@@ -9,7 +9,8 @@
     }
   },
   "result": {
-    "item": "create_compact_transmission:co2_scrubber"
+    "id": "create_compact_transmission:co2_scrubber",
+    "count": 1
   }
 }
 

@@ -13,7 +13,8 @@
     }
   },
   "result": {
-    "item": "create_compact_transmission:four_speed_transmission"
+    "id": "create_compact_transmission:four_speed_transmission",
+    "count": 1
   }
 }
 

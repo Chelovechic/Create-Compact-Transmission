@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     {
       "item": "tfmg:spark_plug"
@@ -18,7 +19,7 @@
     }
   ],
   "result": {
-    "item": "create_compact_transmission:modern_injector"
+    "id": "create_compact_transmission:modern_injector",
+    "count": 1
   }
 }
-
